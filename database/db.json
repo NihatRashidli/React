@@ -1,5 +1,19 @@
 {
-  "users": [],
+  "users": [
+    {
+      "id": "723c",
+      "name": "Nihat ",
+      "surname": "Rashidli",
+      "gender": "male",
+      "username": "rashinvate",
+      "email": "nihatresidli36@gmail.com",
+      "password": "Azerbaijan1!",
+      "confirmpassword": "Azerbaijan1!",
+      "isLogin": true,
+      "wishlist": [],
+      "basket": []
+    }
+  ],
   "products": [
     {
       "id": "1",

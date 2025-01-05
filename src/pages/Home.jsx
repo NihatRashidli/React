@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 import NavigateNextOutlinedIcon from "@mui/icons-material/NavigateNextOutlined";
 import Card from "../components/card/Card";
 import ActionBar from "../components/actionbar/ActionBar";
-import Bags from "../assets/images/Bags.png";
-import Group from "../assets/images/Group.png";
-import Pinkbag from "../assets/images/Pinkbag.png";
-import Orgbag from "../assets/images/Orgbag.png";
-import Greenbag from "../assets/images/Greenbag.png";
-import Blackbag from "../assets/images/Blackbag.png";
+import Canta from "../assets/images/Canta.png";
+import Full from "../assets/images/Full.png";
+import first from "../assets/images/first.png";
+import second from "../assets/images/second.png";
+import third from "../assets/images/third.png";
+import fourth from "../assets/images/fourth.png";
 import {
   fetchProducts,
   sortAzProduct,
@@ -140,7 +140,7 @@ const Home = () => {
                     </div>
                   </div>
                   <div className="bagsIMG col-lg-6 col-md-12 col-sm-12">
-                    <img className="womBagImg" src={Bags} alt="" />
+                    <img className="womBagImg" src={Canta} alt="" />
                   </div>
                 </div>
               </div>
@@ -159,7 +159,7 @@ const Home = () => {
         }}
       >
         <div className="container">
-          <img src={Group} alt="" />
+          <img src={Full} alt="" />
         </div>
       </div>
 
@@ -168,21 +168,21 @@ const Home = () => {
           <div className="bagcard">
             <div className="text">Shoulder bags</div>
             <div>
-              <img src={Pinkbag} alt="" />
+              <img src={first} alt="" />
             </div>
           </div>
 
           <div className="bagcard">
             <div className="text">Handbag</div>
-            <img src={Blackbag} alt="" />
+            <img src={fourth} alt="" />
           </div>
           <div className="bagcard">
             <div className="text">Backpack</div>
-            <img src={Greenbag} alt="" />
+            <img src={third} alt="" />
           </div>
           <div className="bagcard" style={{ position: "relative" }}>
             <div className="text">Evening bags</div>
-            <img src={Orgbag} alt="" />
+            <img src={second} alt="" />
             <div
               style={{
                 position: "absolute",

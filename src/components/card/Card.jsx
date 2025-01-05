@@ -24,8 +24,9 @@ const Card = ({ product, addWishlist }) => {
   }
 
   const addToBasket = (e, product) => {
+    console.log(product.quantity);
     e.stopPropagation();
-    dispatch(addBasket(product));
+    dispatch(addBasket({...product, quantity: 1}));
     notify("Product added to basket", "success");
   };
 
@@ -37,7 +38,9 @@ const Card = ({ product, addWishlist }) => {
       >
         <i
           className={`fa-regular fa-heart ${styles.cardHeart}`}
-          onClick={(e) => addWishlist(e, product)}
+          onClick={(e) => {
+            addWishlist(e, product);
+          }}
         ></i>
         <div className={styles.cardImage}>
           <img src={product?.image} alt="product_image" />
@@ -57,7 +60,9 @@ const Card = ({ product, addWishlist }) => {
         </div>
         <button
           className={styles.addToCart}
-          onClick={(e) => addToBasket(e, product)}
+          onClick={(e) => {
+            addToBasket(e, product);
+          }}
         >
           AddToCard
         </button>

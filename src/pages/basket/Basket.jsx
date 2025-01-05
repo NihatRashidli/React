@@ -8,22 +8,22 @@ import { deleteBasket, minusBtn, plusBtn } from "../../redux/features/basketSlic
 const Basket = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.basket);
+  const navigate = useNavigate();
+
   const totalAmount = products.reduce(
     (sum, product) => sum + product.price * product.quantity,
     0
   );
-  const navigate = useNavigate();
 
   const notify = (text, type) =>
     toast(text, {
-      type: type,
+      type,
       position: "top-center",
       autoClose: 1000,
       hideProgressBar: false,
-      closeOnClick: false,
+      closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
-      progress: undefined,
       theme: "light",
     });
 
@@ -37,69 +37,82 @@ const Basket = () => {
   };
 
   const handleMinus = (product) => {
-    dispatch(minusBtn(product));
+    if (product.quantity > 1) {
+      dispatch(minusBtn(product));
+    }
   };
 
   return (
-    <>
-      <h1 className='headPage'>Your Basket</h1>
-      <section className="basket-container">
-        <div className="container">
-          <div className="row">
-            <div className="basket">
-              {products && products.length > 0 ? (
-                products.map((product) => (
-                  <div className="basket-item" key={product.id}>
-                    <div
-                      className="image"
-                      onClick={() => navigate(`/productdetail/${product.id}`)}
-                    >
-                      <img src={product.image} alt="Product Image" />
-                    </div>
-                    <h6 className="title">
-                      {product.title.slice(0, 15) + " ..."}
-                    </h6>
-                    <p className="category">{product.category}</p>
-                    <p className="price">
-                      ${(product.price * product.quantity).toFixed(2)}
-                    </p>
-                    <div className="count-area">
-                      <button
-                        {...(product.quantity === 1 ? { disabled: true } : {})}
-                        className="minus-btn"
-                        onClick={() => handleMinus(product)}
-                      >
-                        -
-                      </button>
-                      <p className="count">{product.quantity}</p>
-                      <button className="plus-btn" onClick={() => handlePlus(product)}>
-                        +
-                      </button>
-                    </div>
+    <section className="shopping-basket">
+      <h1 className="page-title">Shopping Bag</h1>
+      <div className="basket-content">
+        <div className="products-list">
+          {products.length > 0 ? (
+            products.map((product) => (
+              <div className="product-item" key={product.id}>
+                <div
+                  className="product-image"
+                  onClick={() => navigate(`/productdetail/${product.id}`)}
+                >
+                  <img src={product.image} alt={product.title} />
+                </div>
+                <div className="product-info">
+                  <h6 className="product-title">
+                    {product.title.length > 20
+                      ? product.title.slice(0, 20) + "..."
+                      : product.title}
+                  </h6>
+                  <p className="product-category">{product.category}</p>
+                  <p className="product-price">
+                    ${product.price.toFixed(2)}
+                  </p>
+                  <div className="count-area">
                     <button
-                      className="btn btn-danger removeBtn"
-                      onClick={() => handleDeleteBasket(product)}
+                      className="minus-btn"
+                      onClick={() => handleMinus(product)}
+                      disabled={product.quantity === 1}
                     >
-                      Remove
+                      -
+                    </button>
+                    <span className="count">{product.quantity}</span>
+                    <button
+                      className="plus-btn"
+                      onClick={() => handlePlus(product)}
+                    >
+                      +
                     </button>
                   </div>
-                ))
-              ) : (
-                <p className="empty">Your Basket is Empty</p>
-              )}
-            </div>
-            <div className="bottom">
-              <Link className="link" to="/">
-                back
-              </Link>
-              <h4>
-                Total: $ <span className="total-price">{totalAmount.toFixed(2)}</span>
-              </h4>
-            </div>
-          </div>
+                  <button
+                    className="remove-btn"
+                    onClick={() => handleDeleteBasket(product)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="empty-basket">Your Basket is Empty</p>
+          )}
         </div>
-      </section>
-    </>
+
+        <div className="basket-summary">
+          <h4>Subtotal:</h4>
+          <p>${totalAmount.toFixed(2)}</p>
+          <p>Shipping: Free</p>
+          <h3>Total: ${totalAmount.toFixed(2)}</h3>
+          <div className="promo-code">
+            <input type="text" placeholder="Promo Code" />
+            <button className="apply-btn">Apply</button>
+          </div>
+          <button className="confirm-cart-btn">Confirm Cart</button>
+          <button className="cash-payment-btn">Cash Payment</button>
+          <Link to="/" className="back-btn">
+            Back to Shop
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 };
 
